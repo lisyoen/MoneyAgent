@@ -19,13 +19,14 @@
   "install": {
     "path": "bower_dist",
     "sources": {
-        "bootstrap": [
-            "bower_components/bootstrap/dist/**"
-        ]
+      "bootstrap": [
+        "bower_components/bootstrap/dist/**"
+      ]
     }
   },
   "dependencies": {
     "jquery": "^3.2.1",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "handlebars": "^4.0.11"
   }
 }
