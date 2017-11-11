@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lisyoen/MoneyAgent#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "sqlite3": "^3.1.13"
   }
 }
