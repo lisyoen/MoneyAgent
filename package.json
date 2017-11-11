@@ -1,5 +1,5 @@
 {
-  "name": "moneyagent",
+  "name": "moneyagent-server",
   "description": "",
   "version": "0.1.0",
   "main": "index.js",
