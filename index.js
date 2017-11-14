@@ -1,4 +1,5 @@
 var express = require('express');
+var rest = require('connect-rest');
 
 var app = express();
 
@@ -8,9 +9,10 @@ var handlebars = require('express-handlebars')
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
+app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 80);
 
-app.use(express.static(__dirname + '/public'));
+
 
 app.use(function(req, res){
   res.type('text/plane');
