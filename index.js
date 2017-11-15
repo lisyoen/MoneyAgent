@@ -1,5 +1,5 @@
 var express = require('express');
-var rest = require('connect-rest');
+var Rest = require('connect-rest');
 
 var app = express();
 
@@ -12,7 +12,15 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 80);
 
+var options = {
+  context: '/api',
+  logger:{ file: 'mochaTest.log', level: 'debug' },
+	apiKeys: [ '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9' ]
+};
+var rest = Rest.create(options);
+app.use(rest.processRequest());
 
+//rest.get('/test/:id', function(
 
 app.use(function(req, res){
   res.type('text/plane');
