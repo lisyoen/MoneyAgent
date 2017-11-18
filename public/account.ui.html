@@ -31,72 +31,30 @@
   <div class="p-0">
     <div class="container">
       <div class="row p-0">
-        <div class="col-md-12 p-0">
-          <table class="table m-0 table-striped">
-            <thead></thead>
-            <tbody class="">
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">2017년 11월 용돈</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead amount m-0 account-amount text-secondary">253,000</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">2017년 11월 생활비</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead amount m-0 account-amount text-secondary">1,205,000</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">원준 용돈</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead amount m-0 account-amount text-secondary">752,000</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">투자</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead amount m-0 account-amount text-secondary">465,200</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">2017년 10월 용돈</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead text-danger amount m-0 account-amount">13,500</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-              <tr class="">
-                <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
-                <td class="w-75 px-0">
-                  <p class="lead amount m-0 text-dark account-item">2017년 10월 생활비</p>
-                </td>
-                <td class="text-right px-0">
-                  <p class="lead text-danger amount m-0 account-amount">157,000</p>
-                </td>
-                <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
-              </tr>
-            </tbody>
-          </table>
+        <div id="account-list-container" class="col-md-12 p-0">
+          <script id="account-list-template" type="text/x-handlebars-template">
+            <table class="table m-0 table-striped">
+              <thead></thead>
+              <tbody class="">
+                {{#accountList}}
+                <tr class="">
+                  <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
+                  <td class="w-75 px-0">
+                    <p class="lead amount m-0 text-dark account-item">{{name}}</p>
+                  </td>
+                  <td class="text-right px-0">
+                    {{#if plus}}
+                    <p class="lead amount m-0 account-amount text-danger">{{currency total}}</p>
+                    {{else}}
+                    <p class="lead amount m-0 account-amount text-secondary">{{currency total}}</p>
+                    {{/if}}
+                  </td>
+                  <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
+                </tr>
+                {{/accountList}}
+              </tbody>
+            </table>
+          </script>
         </div>
       </div>
     </div>
@@ -106,9 +64,10 @@
       <a class="btn btn-lg btn-block m-0 btn-secondary" href=""><i class="fa fa-lg fa-plus"></i></a>
     </div>
   </nav>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  <script src="node_modules/requirejs/require.js" data-main="js/main"></script>
 </body>
 
 </html>
