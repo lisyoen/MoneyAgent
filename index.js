@@ -1,10 +1,9 @@
-var express = require('express');
-var Rest = require('connect-rest');
+let express = require('express');
 
-var app = express();
+let app = express();
 
 // using handlebar as template engine
-var handlebars = require('express-handlebars')
+let handlebars = require('express-handlebars')
   .create({defaultLayout: 'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -12,28 +11,93 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 80);
 
-var options = {
-  context: '/api',
-  logger:{ file: 'mochaTest.log', level: 'debug' },
-	//apiKeys: [ '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9' ]
-};
-var rest = Rest.create(options);
-app.use(rest.processRequest());
+const sqlite3 = require('sqlite3').verbose();
 
-rest.get('/test/:id', function(request, content) {
-  /*
-  console.log('request:\n');
-  console.log(Object.keys(request));
-  console.log('content:\n');
-  console.log(Object.keys(content));
-
-  var keys = Object.keys(request);
-  for (var i in keys) {
-    console.log("key="+keys[i]);
-    console.log(request[keys[i]]);
+let db = new sqlite3.Database('./db/md.db', sqlite3.OPEN_READWRITE, (err) => {
+  if (err) {
+    console.error(err.message);
   }
-  */
-  return request.parameters;
+  console.log('Connected to the md database.');
+});
+
+app.get('/api/vwAccounts', function(req, res) {
+  db.serialize(() => {
+    db.all(`SELECT *
+            FROM vwAccounts ORDER BY sort ASC`,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
+});
+
+app.get('/api/accounts', function(req, res) {
+  db.serialize(() => {
+    db.all(`SELECT *
+            FROM accounts`,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
+});
+
+app.get('/api/items/:account_idx', function(req, res) {
+  // req.params.account_idx
+  db.serialize(() => {
+    db.all(`SELECT *
+            FROM items WHERE account_idx = ` + req.params.account_idx,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
+});
+
+app.get('/api/item/:item_idx', function(req, res) {
+  // req.params.item_idx
+  db.serialize(() => {
+    db.get(`SELECT *
+            FROM items WHERE idx = ` + req.params.item_idx,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
+});
+
+app.get('/api/categories', function(req, res) {
+  db.serialize(() => {
+    db.all(`SELECT *
+            FROM categories`,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
+});
+
+app.get('/api/classes', function(req, res) {
+  db.serialize(() => {
+    db.all(`SELECT *
+            FROM classes`,
+            (err, rows) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.json(rows);
+    });
+  });
 });
 
 app.use(function(req, res){
@@ -55,25 +119,6 @@ app.listen(app.get('port'), function() {
 });
 
 /*
-const sqlite3 = require('sqlite3').verbose();
-
-let db = new sqlite3.Database('./db/md.db', sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    console.error(err.message);
-  }
-  console.log('Connected to the md database.');
-});
-
-db.serialize(() => {
-  db.each(`SELECT *
-           FROM accounts`, (err, row) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log(row.idx + "\t" + row.name);
-  });
-});
-
 db.close((err) => {
   if (err) {
     return console.error(err.message);
