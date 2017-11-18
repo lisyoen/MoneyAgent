@@ -15,12 +15,26 @@ app.set('port', process.env.PORT || 80);
 var options = {
   context: '/api',
   logger:{ file: 'mochaTest.log', level: 'debug' },
-	apiKeys: [ '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9' ]
+	//apiKeys: [ '849b7648-14b8-4154-9ef2-8d1dc4c2b7e9' ]
 };
 var rest = Rest.create(options);
 app.use(rest.processRequest());
 
-//rest.get('/test/:id', function(
+rest.get('/test/:id', function(request, content) {
+  /*
+  console.log('request:\n');
+  console.log(Object.keys(request));
+  console.log('content:\n');
+  console.log(Object.keys(content));
+
+  var keys = Object.keys(request);
+  for (var i in keys) {
+    console.log("key="+keys[i]);
+    console.log(request[keys[i]]);
+  }
+  */
+  return request.parameters;
+});
 
 app.use(function(req, res){
   res.type('text/plane');
