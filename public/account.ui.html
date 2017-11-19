@@ -3,12 +3,19 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="img/money-agent-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Money Agent</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css"> </head>
+  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css">
+  <link rel="stylesheet" href="css/account.css">
+</head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-secondary">
+  <nav class="navbar navbar-expand-md navbar-dark bg-secondary fixed-top">
     <div class="container"> <i class="fa d-inline text-white fa-2x fa-tachometer"></i>
       <a class="navbar-brand" href="#">&nbsp; Account </a>
       <button class="navbar-toggler navbar-toggler-right bg-primary" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +38,7 @@
   <div class="p-0">
     <div class="container">
       <div class="row p-0">
-        <div id="account-list-container" class="col-md-12 p-0">
+        <div id="account-list-container" class="col-md-12 p-0 list-container-padding">
           <script id="account-list-template" type="text/x-handlebars-template">
             <table class="table m-0 table-striped">
               <thead></thead>

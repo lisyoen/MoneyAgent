@@ -36,7 +36,7 @@ app.get('/api/vwAccounts', function(req, res) {
 app.get('/api/accounts', function(req, res) {
   db.serialize(() => {
     db.all(`SELECT *
-            FROM accounts`,
+            FROM accounts ORDER BY sort ASC`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
