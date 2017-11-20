@@ -6,17 +6,22 @@ requirejs.config({
   },
 });
 
-requirejs(['jquery', 'handlebars'], function ($, Handlebars) {
+requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
   Handlebars.registerHelper('currency', function(num) {
     return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   });
 
   let params = (new URL(document.location)).searchParams;
-  let account_idx = params.get("account");
+  let account_idx = params.get('account');
 
   $(function () {
     console.log('start');
     let itemListTemplate = Handlebars.compile($('#item-list-template').html());
+
+    $('#btnAccount').on('click', function(e) {
+      history.back();
+      //location.href = config.accounts_path;
+    });
 
     $.getJSON('./api/items/' + account_idx, function(data) {
       const itemList = data;

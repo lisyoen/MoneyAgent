@@ -6,18 +6,13 @@ requirejs.config({
   },
 });
 
-requirejs(['jquery', 'handlebars'], function ($, Handlebars) {
+requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
   Handlebars.registerHelper('currency', function(num) {
     return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   });
 
   $(function () {
     console.log('start');
-    console.log($("#account-list"));
-
-    $("#account-list").delegate("tr", "click", function () {
-      console.log(this.dataset.account);
-    });
 
     let accountListTemplate = Handlebars.compile($('#account-list-template').html());
 
@@ -30,6 +25,11 @@ requirejs(['jquery', 'handlebars'], function ($, Handlebars) {
       }
 
       $('#account-list-container').html(accountListTemplate({'accountList': accountList}));
+
+      $("#account-list").delegate('tr', 'click', function () {
+        location.href = config.items_path + '?account=' + this.dataset.account;
+      });
+
     });
   })
 });
