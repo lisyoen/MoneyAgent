@@ -49,8 +49,12 @@ app.get('/api/accounts', function(req, res) {
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
   db.serialize(() => {
-    db.all(`SELECT *
-            FROM items WHERE account_idx = ` + req.params.account_idx,
+    db.all(`SELECT i.idx as idx, i.amount as amount, i.memo as memo, i.category_idx as category_idx,
+            cat.name as category_name, i.class_idx as class_idx, cls.name as class_name, i.date as date
+            FROM items i LEFT JOIN categories cat ON i.category_idx = cat.idx
+            LEFT JOIN classes cls ON i.class_idx = cls.idx
+            WHERE i.account_idx = ? ORDER BY i.date DESC`,
+            [req.params.account_idx],
             (err, rows) => {
       if (err) {
         console.error(err.message);

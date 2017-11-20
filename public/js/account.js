@@ -13,6 +13,12 @@ requirejs(['jquery', 'handlebars'], function ($, Handlebars) {
 
   $(function () {
     console.log('start');
+    console.log($("#account-list"));
+
+    $("#account-list").delegate("tr", "click", function () {
+      console.log(this.dataset.account);
+    });
+
     let accountListTemplate = Handlebars.compile($('#account-list-template').html());
 
     $.getJSON('./api/vwAccounts', function(data) {
