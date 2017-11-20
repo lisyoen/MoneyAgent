@@ -26,8 +26,17 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
 
       $('#account-list-container').html(accountListTemplate({'accountList': accountList}));
 
-      $("#account-list").delegate('tr', 'click', function () {
+      $('#account-list').delegate('tr', 'click', function (e) {
+        //$(this).toggleClass('item-selected');
         location.href = config.items_path + '?account=' + this.dataset.account;
+      });
+
+      $('#account-list').delegate('tr', 'touchstart', function (e) {
+        $(this).addClass('item-selected');
+      });
+
+      $('#account-list').delegate('tr', 'touchend', function (e) {
+        $(this).removeClass('item-selected');
       });
 
     });

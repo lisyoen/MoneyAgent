@@ -32,6 +32,19 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       }
 
       $('#item-list-container').html(itemListTemplate({'itemList': itemList}));
+
+      $('#item-list').delegate('tr', 'click', function (e) {
+        //$(this).toggleClass('item-selected');
+        location.href = config.item_path + '?item=' + this.dataset.item;
+      });
+
+      $('#item-list').delegate('tr', 'touchstart', function (e) {
+        $(this).addClass('item-selected');
+      });
+
+      $('#item-list').delegate('tr', 'touchend', function (e) {
+        $(this).removeClass('item-selected');
+      });
     });
   })
 });

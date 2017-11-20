@@ -2,3 +2,7 @@
   padding-top: 55px !important;
   padding-bottom: 50px !important;
 }
+
+.item-selected {
+  background-color: #bbbbbb !important;
+}
