@@ -12,7 +12,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
-app.set('port', process.env.PORT || 80);
+app.set('port', config.service_port);
 
 const sqlite3 = require('sqlite3').verbose();
 
