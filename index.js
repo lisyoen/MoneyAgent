@@ -1,6 +1,9 @@
 let express = require('express');
+let vhost = require('vhost');
+let config = require('./config.private.js');
 
-let app = express();
+let app = express(); // Money Agent
+let appHost = express();  // vhost app
 
 // using handlebar as template engine
 let handlebars = require('express-handlebars')
@@ -117,9 +120,11 @@ app.use(function(err, req, res, next) {
   res.send('500 - Server Error');
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Express started on http://localhost:' +
-  app.get('port') + '; press Ctrl-C to terminate.');
+appHost.use(vhost(config.service_domain, app));
+
+appHost.listen(app.get('port'), function() {
+  console.log('Express started on http://' + config.service_domain + ':' +
+    app.get('port') + '; press Ctrl-C to terminate.');
 });
 
 /*
