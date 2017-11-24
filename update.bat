@@ -1,5 +1,5 @@
 git pull
-npm install
+call npm install
 cd public
-npm install
+call npm install
 cd ..
