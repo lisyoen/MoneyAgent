@@ -71,8 +71,8 @@ app.get('/api/items/:account_idx', function(req, res) {
 app.get('/api/item/:item_idx', function(req, res) {
   // req.params.item_idx
   db.serialize(() => {
-    db.get(`SELECT *
-            FROM items WHERE idx = ` + req.params.item_idx,
+    db.get(`SELECT * FROM items WHERE idx = ?`,
+            [req.params.item_idx],
             (err, rows) => {
       if (err) {
         console.error(err.message);
@@ -84,8 +84,7 @@ app.get('/api/item/:item_idx', function(req, res) {
 
 app.get('/api/categories', function(req, res) {
   db.serialize(() => {
-    db.all(`SELECT *
-            FROM categories`,
+    db.all(`SELECT * FROM categories`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
@@ -97,8 +96,7 @@ app.get('/api/categories', function(req, res) {
 
 app.get('/api/classes', function(req, res) {
   db.serialize(() => {
-    db.all(`SELECT *
-            FROM classes`,
+    db.all(`SELECT * FROM classes`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
