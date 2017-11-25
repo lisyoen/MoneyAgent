@@ -16,11 +16,11 @@ app.set('port', config.service_port);
 
 const sqlite3 = require('sqlite3').verbose();
 
-let db = new sqlite3.Database('./db/md.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database(config.db_path, sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.error(err.message);
   }
-  console.log('Connected to the md database.');
+  console.log('Connected to ' + config.db_path + ' database.');
 });
 
 app.get('/api/vwAccounts', function(req, res) {
