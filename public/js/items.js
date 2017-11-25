@@ -18,7 +18,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
     console.log('start');
     let itemListTemplate = Handlebars.compile($('#item-list-template').html());
 
-    $('#btnAccount').on('click', function(e) {
+    $('#back-button').on('click', function(e) {
       location.replace(config.accounts_path);
     });
 

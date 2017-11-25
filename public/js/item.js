@@ -18,7 +18,11 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
   $(function () {
     console.log('start');
 
-    $('#btnCancel').on('click', function(e) {
+    let titleTemplate = Handlebars.compile($('#title-template').html());
+
+    $('#title-container').html(titleTemplate({'title': 'New Item'}));
+
+    $('#back-button').on('click', function(e) {
       location.replace(config.items_path + '?account=' + account_idx);
     });
 

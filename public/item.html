@@ -12,8 +12,12 @@
 <body class="bg-light">
   <nav class="navbar navbar-expand-md sticky-top bg-dark navbar-dark">
     <div class="container">
-      <div id="btnCancel" class="btn btn-warning" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Cancel</div>
-      <a class="navbar-brand" href="#">&nbsp; New Item </a>
+      <div id="back-button" class="btn btn-warning" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Cancel</div>
+      <div id="title-container" class="navbar-brand" href="#">&nbsp;
+        <script id="title-template" type="text/x-handlebars-template">
+          {{title}}
+        </script>
+      </div>
     </div>
   </nav>
   <div class="p-0">
@@ -42,8 +46,8 @@
   </div>
   <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
     <div class="container">
-      <div id="btnBack" class="btn btn-light" href="#"><i class="fa fa-lg fa-check"></i>&nbsp;Submit</div>
-      <div id="btnBack" class="btn btn-warning" href="#"><i class="fa fa-lg fa-times"></i>&nbsp;Cancel</div>
+      <div id="btnBack" class="btn m-0 btn-light" href="#"><i class="fa fa-lg fa-check"></i>&nbsp;Submit</div>
+      <div id="btnBack" class="btn m-0 btn-warning" href="#"><i class="fa fa-lg fa-times"></i>&nbsp;Cancel</div>
     </div>
   </nav>
   <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
