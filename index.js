@@ -1,6 +1,6 @@
 let express = require('express');
 let vhost = require('vhost');
-let config = require('./config.private.js');
+let config = require('./config.js');
 
 let app = express(); // Money Agent
 let appHost = express();  // vhost app
