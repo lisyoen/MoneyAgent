@@ -31,11 +31,26 @@ app.get('/api/vwAccounts', function(req, res) {
       if (err) {
         console.error(err.message);
       }
-      res.json(rows);
+
+      let result = [];
+      rows.forEach(function (item, index, array) {
+        result.push({
+          idx: item.idx,
+          name: item.name,
+          count: item.count,
+          total: item.total,
+          sort: item.sort,
+          date: item.date,
+          icon: item.icon
+        })
+      });
+
+      res.json(result);
     });
   });
 });
 
+/*
 app.get('/api/accounts', function(req, res) {
   db.serialize(() => {
     db.all(`SELECT *
@@ -48,6 +63,7 @@ app.get('/api/accounts', function(req, res) {
     });
   });
 });
+*/
 
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
