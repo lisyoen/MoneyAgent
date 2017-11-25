@@ -26,8 +26,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       $('#account-list-container').html(accountListTemplate({'empty': (accountList.length == 0), 'accountList': accountList}));
 
       $('#account-list').delegate('tr', 'click', function (e) {
-        //$(this).toggleClass('item-selected');
-        location.href = config.items_path + '?account=' + this.dataset.idx;
+        location.replace(config.items_path + '?account=' + this.dataset.idx);
       });
 
       $('#account-list').delegate('tr', 'touchstart', function (e) {

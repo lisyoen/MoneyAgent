@@ -19,8 +19,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
     let itemListTemplate = Handlebars.compile($('#item-list-template').html());
 
     $('#btnAccount').on('click', function(e) {
-      history.back();
-      //location.href = config.accounts_path;
+      location.replace(config.accounts_path);
     });
 
     $.getJSON('./api/items/' + account_idx, function(data) {
@@ -33,8 +32,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       $('#item-list-container').html(itemListTemplate({'empty': (itemList.length == 0), 'itemList': itemList}));
 
       $('#item-list').delegate('tr', 'click', function (e) {
-        //$(this).toggleClass('item-selected');
-        location.href = config.item_path + '?item=' + this.dataset.idx;
+        location.replace(config.item_path + '?account=' + account_idx +'&item=' + this.dataset.idx);
       });
 
       $('#item-list').delegate('tr', 'touchstart', function (e) {
