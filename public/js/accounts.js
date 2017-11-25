@@ -16,7 +16,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
 
     let accountListTemplate = Handlebars.compile($('#account-list-template').html());
 
-    $.getJSON('./api/vwAccounts', function(data) {
+    $.getJSON('./api/accounts', function(data) {
       const accountList = data;
 
       for (let i in accountList) {

@@ -23,7 +23,7 @@ let db = new sqlite3.Database(config.db_path, sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to ' + config.db_path + ' database.');
 });
 
-app.get('/api/vwAccounts', function(req, res) {
+app.get('/api/accounts', function(req, res) {
   db.serialize(() => {
     db.all(`SELECT *
             FROM vwAccounts ORDER BY sort ASC`,
@@ -49,21 +49,6 @@ app.get('/api/vwAccounts', function(req, res) {
     });
   });
 });
-
-/*
-app.get('/api/accounts', function(req, res) {
-  db.serialize(() => {
-    db.all(`SELECT *
-            FROM accounts ORDER BY sort ASC`,
-            (err, rows) => {
-      if (err) {
-        console.error(err.message);
-      }
-      res.json(rows);
-    });
-  });
-});
-*/
 
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
