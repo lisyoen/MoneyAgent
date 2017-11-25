@@ -19,16 +19,15 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
     $.getJSON('./api/accounts', function(data) {
       const accountList = data;
 
-      for (let i in accountList) {
-        let account = accountList[i];
+      accountList.forEach(function (account, index, array) {
         account.plus = account.total >= 0;
-      }
+      });
 
-      $('#account-list-container').html(accountListTemplate({'accountList': accountList}));
+      $('#account-list-container').html(accountListTemplate({'empty': (accountList.length == 0), 'accountList': accountList}));
 
       $('#account-list').delegate('tr', 'click', function (e) {
         //$(this).toggleClass('item-selected');
-        location.href = config.items_path + '?account=' + this.dataset.account;
+        location.href = config.items_path + '?account=' + this.dataset.idx;
       });
 
       $('#account-list').delegate('tr', 'touchstart', function (e) {
@@ -38,7 +37,6 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       $('#account-list').delegate('tr', 'touchend', function (e) {
         $(this).removeClass('item-selected');
       });
-
     });
   })
 });

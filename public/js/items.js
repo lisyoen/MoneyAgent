@@ -26,16 +26,15 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
     $.getJSON('./api/items/' + account_idx, function(data) {
       const itemList = data;
 
-      for (let i in itemList) {
-        let account = itemList[i];
-        account.plus = account.total >= 0;
-      }
+      itemList.forEach(function (item, index, array) {
+        item.plus = item.amount >= 0;
+      });
 
-      $('#item-list-container').html(itemListTemplate({'itemList': itemList}));
+      $('#item-list-container').html(itemListTemplate({'empty': (itemList.length == 0), 'itemList': itemList}));
 
       $('#item-list').delegate('tr', 'click', function (e) {
         //$(this).toggleClass('item-selected');
-        location.href = config.item_path + '?item=' + this.dataset.item;
+        location.href = config.item_path + '?item=' + this.dataset.idx;
       });
 
       $('#item-list').delegate('tr', 'touchstart', function (e) {

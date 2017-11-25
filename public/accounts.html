@@ -44,20 +44,27 @@
       <div class="row p-0">
         <div id="account-list-container" class="col-md-12 p-0 list-container-padding">
           <script id="account-list-template" type="text/x-handlebars-template">
+            {{#if empty}}
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-center">List is empty.</h1>
+              </div>
+            </div>
+            {{else}}
             <table id="account-list" class="table m-0 table-striped">
               <thead></thead>
               <tbody class="">
                 {{#accountList}}
-                <tr class="" data-account="{{idx}}">
+                <tr class="" data-idx="{{idx}}">
                   <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
                   <td class="w-75 px-0">
                     <p class="lead amount m-0 text-dark account-item">{{name}}</p>
                   </td>
                   <td class="text-right px-0">
                     {{#if plus}}
-                    <p class="lead amount m-0 account-amount text-danger">{{currency total}}</p>
+                    <p class="lead m-0 text-danger">{{currency total}}</p>
                     {{else}}
-                    <p class="lead amount m-0 account-amount text-secondary">{{currency total}}</p>
+                    <p class="lead m-0 text-secondary">{{currency total}}</p>
                     {{/if}}
                   </td>
                   <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
@@ -65,6 +72,7 @@
                 {{/accountList}}
               </tbody>
             </table>
+            {{/if}}
           </script>
         </div>
       </div>
