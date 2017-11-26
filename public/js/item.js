@@ -20,11 +20,22 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
 
     let titleTemplate = Handlebars.compile($('#title-template').html());
 
-    $('#title-container').html(titleTemplate({'title': 'New Item'}));
+    $('#title-container').html(titleTemplate({'title': 'Edit Item'}));
 
-    $('#back-button').on('click', function(e) {
+    $("#datetime").val(new Date().toJSON().slice(0,19));
+
+    $('#cancel-button').on('click', function(e) {
       location.replace(config.items_path + '?account=' + account_idx);
     });
 
+    $('#submit-button').on('click', function(e) {
+      alert($('#datetime')[0].value);
+    });
+
+    $.getJSON('./api/item/' + item_idx, function(data) {
+      const item = data;
+      console.log(item);
+
+    });
   });
 });
