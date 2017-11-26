@@ -6,3 +6,14 @@
 .item-selected {
   background-color: #bbbbbb !important;
 }
+
+.toggler-button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* disable popup context menu in browser */
+*:not(input):not(textarea) {
+  -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+  -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+}
