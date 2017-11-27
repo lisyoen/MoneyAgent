@@ -11,11 +11,11 @@
 
 <body class="bg-light">
   <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-    <div class="container">
-      <div id="cancel-button" class="btn cancel-button btn-warning" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Cancel</div>
-      <div id="title-container" class="navbar-brand" href="#">&nbsp;
+    <div class="container"> <i class="fa d-inline text-white fa-2x fa-calendar-check-o"></i>
+      <div id="title-container" class="navbar-brand nav-title" href="#">&nbsp;
         <script id="title-template" type="text/x-handlebars-template">{{title}}</script>
       </div>
+      <div id="refresh-button" class="btn btn-primary refresh-button"><i class="fa fa-lg fa-refresh"></i></div>
     </div>
   </nav>
   <div class="p-0">
@@ -35,33 +35,28 @@
           <div class="col-md-12">
             <div class="form-group">
               <h6>Date Time</h6>
-              <input id="datetime" type="datetime-local" class="form-control" placeholder="" value="{{date_string}}"> </div>
+              <input id="datetime" type="datetime-local" class="form-control form-control-lg" placeholder="" value="{{date_string}}"> </div>
             <div class="form-group">
               <h6>Category</h6>
-              <input id="category" type="text" class="form-control" placeholder="" value="{{category_name}}"> </div>
+              <input id="category" type="text" class="form-control form-control-lg" placeholder="" value="{{category_name}}"> </div>
             <div class="form-group">
               <h6>Amount</h6>
-              <input id="amount" type="number" class="form-control" placeholder="" value="{{amount}}" pattern="\d*"> </div>
+              <input id="amount" type="number" class="form-control form-control-lg" placeholder="" value="{{amount}}" pattern="\d*"> </div>
             <div class="form-group">
               <h6>Class</h6>
-              <input id="class" type="text" class="form-control" placeholder="" value="{{class_name}}"> </div>
+              <input id="class" type="text" class="form-control form-control-lg" placeholder="" value="{{class_name}}"> </div>
             <div class="form-group">
-              <h6>Memo</h6>
-              <textarea id="memo" type="text" class="form-control" placeholder="" value="">{{memo}}</textarea> </div>
-            {{#if edit}}
-            <div class="btn btn-block btn-danger btn-lg" href=""><i class="fa fa-lg fa-trash"></i>&nbsp;Delete Item </div>
-            {{/if}}
-          </div>
+              <h6>Memo</h6> <textarea id="memo" type="text" class="form-control form-control-lg" placeholder="" value="">{{memo}}</textarea> </div> {{#if edit}}
+            <div class="btn btn-block btn-danger btn-lg" href=""><i class="fa fa-lg fa-trash"></i>&nbsp;Delete Item </div> {{/if}} </div>
         </script>
       </div>
-      <div class="row">
-        <br> </div>
     </div>
   </div>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark p-0 fixed-bottom bg-dark">
     <div class="container">
-      <div id="submit-button" class="btn m-0 btn-light" href="#"><i class="fa fa-lg fa-check"></i>&nbsp;Submit</div>
-      <div id="cancel-button2" class="btn cancel-button m-0 btn-warning" href="#"><i class="fa fa-lg fa-times"></i>&nbsp;Cancel</div>
+      <div id="cancel-button" class="btn cancel-button btn-primary btn-lg rect-button"><i class="fa fa-lg fa-chevron-left"></i></div>
+      <div id="add-button" class="btn btn-lg m-0 w-50 rect-button btn-dark"><i class="fa fa-lg fa-check"></i></div>
+      <div id="cancel-button2" class="btn cancel-button m-0 btn-primary btn-lg rect-button" href="#"><i class="fa fa-lg fa-times"></i></div>
     </div>
   </nav>
   <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>

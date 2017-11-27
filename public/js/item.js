@@ -32,7 +32,11 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
     $("#datetime").val(new Date().toJSON().slice(0,19));
 
-    $('#cancel-button').on('click', function(e) {
+    $('#refresh-button').on('click', function(e) {
+      location.reload(true);
+    });
+
+    $('.cancel-button').on('click', function(e) {
       location.replace(config.items_path + '?account=' + account_idx);
     });
 

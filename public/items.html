@@ -13,7 +13,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
       <i class="fa d-inline text-white fa-2x fa-calendar-check-o"></i>
-      <div id="title-container" class="navbar-brand" href="#">&nbsp;
+      <div id="title-container" class="navbar-brand nav-title" href="#">&nbsp;
         <script id="title-template" type="text/x-handlebars-template">{{title}}</script>
       </div>
       <div id="refresh-button" class="btn btn-primary refresh-button"><i class="fa fa-lg fa-refresh"></i></div>
@@ -53,7 +53,7 @@
                     <p class="lead m-0 text-secondary item-amount">{{currency amount}}</p> {{/if}}
                     <div class="item-date">{{date_string}}</div>
                    </td>
-                  <td class="p-0"><i class="fa fa-2x text-center d-block fa-angle-right py-2"></i></td>
+                  <td class="px-2 py-0"><i class="fa fa-2x text-center d-block fa-angle-right py-2"></i></td>
                 </tr> {{/itemList}} </tbody>
             </table> {{/if}} </script>
         </div>
@@ -78,7 +78,8 @@
       <div id="back-button2" class="btn back-button btn-primary btn-lg rect-button"><i class="fa fa-lg fa-chevron-left"></i></div>
       <div id="add-button" class="btn btn-lg m-0 w-50 rect-button btn-dark"><i class="fa fa-lg fa-plus"></i></div>
       <button class="navbar-toggler navbar-toggler-right bg-primary rect-button toggler-button" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
   </nav>
   <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
