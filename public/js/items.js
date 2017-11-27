@@ -26,6 +26,10 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       location.reload(true);
     });
 
+    $('#add-button').on('click', function(e) {
+      location.replace(config.item_path + '?account=' + account_idx);
+    });
+
     $.getJSON('./api/items/' + account_idx, function(data) {
       const itemList = data;
 

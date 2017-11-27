@@ -14,13 +14,19 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
   let params = (new URL(document.location)).searchParams;
   let account_idx = params.get('account');
   let item_idx = params.get('item');
+  let edit_mode = (item_idx !== undefined);
 
   $(function () {
-    console.log('start');
+    console.log('start', account_idx, item_idx, edit_mode);
 
     let titleTemplate = Handlebars.compile($('#title-template').html());
+    let itemTemplate = Handlebars.compile($('#item-template').html());
 
-    $('#title-container').html(titleTemplate({'title': 'Edit Item'}));
+    if (edit_mode) {
+      $('#title-container').html(titleTemplate({'title': 'Edit Item'}));
+    } else {
+      $('#title-container').html(titleTemplate({'title': 'Add Item'}));
+    }
 
     $("#datetime").val(new Date().toJSON().slice(0,19));
 
@@ -32,10 +38,14 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
       alert($('#datetime')[0].value);
     });
 
-    $.getJSON('./api/item/' + item_idx, function(data) {
-      const item = data;
-      console.log(item);
+    if (edit_mode) {
+      $.getJSON('./api/item/' + item_idx, function(data) {
+        const item = data;
+        item.edit = true;
+        console.log(item);
 
-    });
+        $('#item-container').html(itemTemplate(item));
+      });
+    }
   });
 });

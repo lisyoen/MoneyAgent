@@ -32,6 +32,7 @@ app.get('/api/accounts', function(req, res) {
         console.error(err.message);
       }
 
+      // filter unnecessary column
       let result = [];
       rows.forEach(function (item, index, array) {
         result.push({
@@ -53,8 +54,8 @@ app.get('/api/accounts', function(req, res) {
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
   db.serialize(() => {
-    db.all(`SELECT i.idx as idx, i.amount as amount, i.memo as memo, i.category_idx as category_idx,
-            cat.name as category_name, i.class_idx as class_idx, cls.name as class_name, i.date as date
+    db.all(`SELECT i.idx AS idx, i.amount AS amount, i.memo AS memo, i.category_idx AS category_idx,
+            cat.name AS category_name, i.class_idx AS class_idx, cls.name AS class_name, i.date AS date
             FROM items i LEFT JOIN categories cat ON i.category_idx = cat.idx
             LEFT JOIN classes cls ON i.class_idx = cls.idx
             WHERE i.account_idx = ? ORDER BY i.date DESC`,
@@ -71,7 +72,12 @@ app.get('/api/items/:account_idx', function(req, res) {
 app.get('/api/item/:item_idx', function(req, res) {
   // req.params.item_idx
   db.serialize(() => {
-    db.get(`SELECT * FROM items WHERE idx = ?`,
+    db.get(`SELECT i.idx AS idx, i.amount AS amount, i.memo AS memo, i.'date' AS 'date',
+	          i.category_idx AS category_idx, cat.name AS category_name,
+            i.class_idx AS class_idx, cls.name AS class_name
+            FROM items i LEFT JOIN categories cat ON i.category_idx = cat.idx
+            LEFT JOIN classes cls ON i.class_idx = cls.idx
+            WHERE i.idx = ?`,
             [req.params.item_idx],
             (err, rows) => {
       if (err) {
