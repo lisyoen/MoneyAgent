@@ -1,3 +1,4 @@
 # MoneyAgent
 
-Create to replace the Money Agent app on iOS.
+This project is being developed to replace the iOS Money Agent app.
+Not for you, just for me.
