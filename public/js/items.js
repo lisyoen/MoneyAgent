@@ -18,6 +18,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
   $(function () {
     console.log('start');
+    let titleTemplate = Handlebars.compile($('#title-template').html());
     let itemListTemplate = Handlebars.compile($('#item-list-template').html());
 
     $('.back-button').on('click', function(e) {
@@ -33,14 +34,19 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
     });
 
     $.getJSON('./api/items/' + account_idx, function(data) {
-      const itemList = data;
+      const account = data.account;
+      const itemList = data.itemList;
+
+      $('#title-container').html(titleTemplate({'title': account.name}));
 
       itemList.forEach(function (item, index, array) {
         item.plus = item.amount >= 0;
         item.date_string = dc.SQLite3ToDateString(item.date);
       });
 
-      $('#item-list-container').html(itemListTemplate({'empty': (itemList.length == 0), 'itemList': itemList}));
+      data.empty = (itemList.length == 0);
+
+      $('#item-list-container').html(itemListTemplate(data));
 
       $('#item-list').delegate('tr', 'click', function (e) {
         location.replace(config.item_path + '?account=' + account_idx +'&item=' + this.dataset.idx);

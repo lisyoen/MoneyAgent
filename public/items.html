@@ -12,8 +12,10 @@
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-      <div id="back-button" class="btn back-button btn-primary" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Account</div>
-      <div class="navbar-brand" href="#">&nbsp; 2017년 11월 </div>
+      <i class="fa d-inline text-white fa-2x fa-calendar-check-o"></i>
+      <div id="title-container" class="navbar-brand" href="#">&nbsp;
+        <script id="title-template" type="text/x-handlebars-template">{{title}}</script>
+      </div>
       <div id="refresh-button" class="btn btn-primary refresh-button"><i class="fa fa-lg fa-refresh"></i></div>
     </div>
   </nav>

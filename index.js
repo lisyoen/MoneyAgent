@@ -25,28 +25,14 @@ let db = new sqlite3.Database(config.db_path, sqlite3.OPEN_READWRITE, (err) => {
 
 app.get('/api/accounts', function(req, res) {
   db.serialize(() => {
-    db.all(`SELECT *
+    db.all(`SELECT idx, name, count, total, sort, date, icon
             FROM vwAccounts ORDER BY sort ASC`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
       }
 
-      // filter unnecessary column
-      let result = [];
-      rows.forEach(function (item, index, array) {
-        result.push({
-          idx: item.idx,
-          name: item.name,
-          count: item.count,
-          total: item.total,
-          sort: item.sort,
-          date: item.date,
-          icon: item.icon
-        })
-      });
-
-      res.json(result);
+      res.json(rows);
     });
   });
 });
@@ -54,6 +40,17 @@ app.get('/api/accounts', function(req, res) {
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
   db.serialize(() => {
+    let result = {};
+    db.get(`SELECT idx, name, sort, date, icon
+            FROM accounts WHERE idx = ?`,
+            [req.params.account_idx],
+            (err, row) => {
+      if (err) {
+        console.error(err.message);
+      }
+      result.account = row;
+    });
+
     db.all(`SELECT i.idx AS idx, i.amount AS amount, i.memo AS memo, i.category_idx AS category_idx,
             cat.name AS category_name, i.class_idx AS class_idx, cls.name AS class_name, i.date AS date
             FROM items i LEFT JOIN categories cat ON i.category_idx = cat.idx
@@ -64,7 +61,8 @@ app.get('/api/items/:account_idx', function(req, res) {
       if (err) {
         console.error(err.message);
       }
-      res.json(rows);
+      result.itemList = rows;
+      res.json(result);
     });
   });
 });
