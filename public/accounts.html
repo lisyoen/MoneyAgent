@@ -37,11 +37,11 @@
                 <tr class="" data-idx="{{idx}}">
                   <td class="py-2"><i class="fa fa-2x text-center d-block m-0 fa-calendar-check-o"></i></td>
                   <td class="w-75 px-0">
-                    <p class="lead amount m-0 text-dark account-item">{{name}}</p>
+                    <p class="lead amount m-0 text-dark item-title">{{name}}</p>
                   </td>
                   <td class="text-right px-0"> {{#if plus}}
-                    <p class="lead m-0 text-danger">{{currency total}}</p> {{else}}
-                    <p class="lead m-0 text-secondary">{{currency total}}</p> {{/if}} </td>
+                    <p class="lead m-0 text-danger item-amount">{{currency total}}</p> {{else}}
+                    <p class="lead m-0 text-secondary item-amount">{{currency total}}</p> {{/if}} </td>
                   <td class="py-2"><i class="fa fa-2x text-center d-block fa-angle-right m-0"></i></td>
                 </tr> {{/accountList}} </tbody>
             </table> {{/if}} </script>

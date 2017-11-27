@@ -12,7 +12,7 @@
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-      <div id="back-button" class="btn btn-primary" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Account</div>
+      <div id="back-button" class="btn back-button btn-primary" href="#"><i class="fa fa-lg fa-chevron-left"></i>&nbsp;Account</div>
       <div class="navbar-brand" href="#">&nbsp; 2017년 11월 </div>
       <div id="refresh-button" class="btn btn-primary refresh-button"><i class="fa fa-lg fa-refresh"></i></div>
     </div>
@@ -39,16 +39,18 @@
                 </tr>
               -->{{#itemList}}
                 <tr class="" data-idx="{{idx}}">
-                  <td class="p-0"><i class="fa fa-2x text-center fa-coffee d-block my-2"></i></td>
+                  <td class="p-0"><i class="fa fa-2x text-center fa-coffee d-block my-2 item-icon"></i></td>
                   <td class="w-75 p-0">
                     <div class="blockquote m-0">
-                      <p class="mb-0">{{category_name}}</p>
-                      <div class="blockquote-footer item-description">{{class_name}} {{memo}}</div>
+                      <p class="item-title mb-0">{{category_name}}</p>
+                      <div class="item-description">{{class_name}} {{memo}}</div>
                     </div>
                   </td>
-                  <td class="text-right"> {{#if plus}}
-                    <p class="lead m-0 text-danger">{{currency amount}}</p> {{else}}
-                    <p class="lead m-0 text-secondary">{{currency amount}}</p> {{/if}} </td>
+                  <td class="text-right m-0 p-0"> {{#if plus}}
+                    <p class="lead m-0 text-danger item-amount">{{currency amount}}</p> {{else}}
+                    <p class="lead m-0 text-secondary item-amount">{{currency amount}}</p> {{/if}}
+                    <div class="item-date">{{date_string}}</div>
+                   </td>
                   <td class="p-0"><i class="fa fa-2x text-center d-block fa-angle-right py-2"></i></td>
                 </tr> {{/itemList}} </tbody>
             </table> {{/if}} </script>
@@ -71,7 +73,7 @@
           </li>
         </ul>
       </div>
-      <div id="refresh-button2" class="btn btn-primary btn-lg rect-button refresh-button"><i class="fa fa-lg fa-refresh"></i></div>
+      <div id="back-button2" class="btn back-button btn-primary btn-lg rect-button"><i class="fa fa-lg fa-chevron-left"></i></div>
       <div id="add-button" class="btn btn-lg m-0 w-50 rect-button btn-dark"><i class="fa fa-lg fa-plus"></i></div>
       <button class="navbar-toggler navbar-toggler-right bg-primary rect-button toggler-button" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false"
         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>

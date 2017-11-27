@@ -2,11 +2,13 @@ requirejs.config({
   baseUrl: 'js',
   paths : {
     'jquery': '../node_modules/jquery/dist/jquery.min',
-    'handlebars': '../node_modules/handlebars/dist/handlebars.min'
+    'handlebars': '../node_modules/handlebars/dist/handlebars.min',
+    'date-convert': './date-convert'
   },
 });
 
-requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
+requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
+  function ($, Handlebars, config, dc) {
   Handlebars.registerHelper('currency', function(num) {
     return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   });
@@ -18,11 +20,11 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
     console.log('start');
     let itemListTemplate = Handlebars.compile($('#item-list-template').html());
 
-    $('#back-button').on('click', function(e) {
+    $('.back-button').on('click', function(e) {
       location.replace(config.accounts_path);
     });
 
-    $('.refresh-button').on('click', function(e) {
+    $('#refresh-button').on('click', function(e) {
       location.reload(true);
     });
 
@@ -35,6 +37,7 @@ requirejs(['jquery', 'handlebars', 'config'], function ($, Handlebars, config) {
 
       itemList.forEach(function (item, index, array) {
         item.plus = item.amount >= 0;
+        item.date_string = dc.SQLite3ToDateString(item.date);
       });
 
       $('#item-list-container').html(itemListTemplate({'empty': (itemList.length == 0), 'itemList': itemList}));
