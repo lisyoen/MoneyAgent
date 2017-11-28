@@ -1,7 +1,8 @@
-@if [%1] == [/p] goto PULL
-@if [%1] == [/P] goto PULL
-@if [%1] == [-p] goto PULL
-@if [%1] == [-P] goto PULL
+@echo off
+if [%1] == [/p] goto PULL
+if [%1] == [/P] goto PULL
+if [%1] == [-p] goto PULL
+if [%1] == [-P] goto PULL
 
 call pm2 restart mas
 goto END
