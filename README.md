@@ -3,6 +3,4 @@
 
 This project is being developed to replace the iOS Money Agent app.
 
-It's just for me.
-
-I have no plan to open this service.
+This is private project and I have no plan to open this service.
