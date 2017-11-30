@@ -31,6 +31,23 @@
       <div class="row">
         <br> </div>
       <div id="item-container" class="row">
+        <script id="category-item-template" type="text/x-handlebars-template">
+          {{#categoryList}}
+          {{#if type}}
+          <div class="list-group-item category-item py-2 text-color-income" data-idx="{{idx}}" data-amount="{{default_amount}}" data-type="{{type}}" data-name="{{name}}">
+          {{else}}
+          <div class="list-group-item category-item py-2 text-color-outgoing" data-idx="{{idx}}" data-amount="{{default_amount}}" data-type="{{type}}" data-name="{{name}}">
+          {{/if}}
+            {{#if parent}}&nbsp;&nbsp;{{/if}}
+            <i class="fa d-inline text-dark fa-1x fa-bus"></i>&nbsp;{{name}}
+          </div>
+          {{/categoryList}}
+        </script>
+        <script id="class-item-template" type="text/x-handlebars-template">
+          {{#classList}}
+          <div class="list-group-item class-item py-2" data-idx="{{idx}}" data-name="{{name}}">{{name}}</div>
+          {{/classList}}
+        </script>
         <script id="item-template" type="text/x-handlebars-template">
           <div class="col-md-12">
             <div class="form-group">
@@ -38,78 +55,24 @@
               <input id="datetime" type="datetime-local" class="form-control form-control-lg" placeholder="" value="{{date_string}}"> </div>
             <div class="form-group">
               <h6>Category</h6>
-
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                Launch demo modal
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      <div><i class="fa d-inline text-dark fa-2x fa-calendar-check-o"></i>&nbsp; Category</div>
-                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
+              <input id="category" type="button" data-toggle="collapse" data-target="#category-list"
+                class="form-control form-control-lg text-left" data-category-idx="{{category_idx}}" value="{{category_name}}">
+              <div id="category-list" class="collapse">
+                <div class="list-group-item">Loading categories...</div>
               </div>
-
-              <input id="category" type="text" class="form-control form-control-lg" placeholder="" value="{{category_name}}"> </div>
+            </div>
             <div class="form-group">
               <h6>Amount</h6>
-              <input id="amount" type="number" class="form-control form-control-lg" placeholder="" value="{{amount}}" pattern="\d*"> </div>
+              <input id="amount" type="number" class="form-control form-control-lg" placeholder="" value="{{amount}}" pattern="\d*">
+            </div>
             <div class="form-group">
               <h6>Class</h6>
-              <input id="class" type="text" class="form-control form-control-lg" placeholder="" value="{{class_name}}"> </div>
+              <input id="class" type="button" data-toggle="collapse" data-target="#class-list"
+                class="form-control form-control-lg text-left" data-class-idx="{{class_idx}}" value="{{class_name}}">
+              <div id="class-list" class="collapse list-group">
+                <div class="list-group-item">Loading classes...</div>
+              </div>
+            </div>
             <div class="form-group">
               <h6>Memo</h6> <textarea id="memo" type="text" class="form-control form-control-lg" placeholder="" value="">{{memo}}</textarea> </div> {{#if edit}}
             <div class="btn btn-block btn-danger btn-lg" href=""><i class="fa fa-lg fa-trash"></i>&nbsp;Delete Item </div> {{/if}} </div>
