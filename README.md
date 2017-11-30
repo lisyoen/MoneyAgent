@@ -3,5 +3,6 @@
 
 This project is being developed to replace the iOS Money Agent app.
 
-Just for me.
+It's just for me.
 
+I have no plan to open this service.
