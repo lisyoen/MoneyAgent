@@ -88,7 +88,7 @@ app.get('/api/item/:item_idx', function(req, res) {
 
 app.get('/api/categories', function(req, res) {
   db.serialize(() => {
-    db.all(`SELECT * FROM categories`,
+    db.all(`SELECT idx, name, parent, type, default_amount, icon FROM categories`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
@@ -100,7 +100,7 @@ app.get('/api/categories', function(req, res) {
 
 app.get('/api/classes', function(req, res) {
   db.serialize(() => {
-    db.all(`SELECT * FROM classes`,
+    db.all(`SELECT idx, name FROM classes`,
             (err, rows) => {
       if (err) {
         console.error(err.message);
