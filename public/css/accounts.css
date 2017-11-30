@@ -51,3 +51,11 @@
 .rect-button {
   border-radius: 0px;
 }
+
+.text-color-income {
+  color: #dc3545;
+}
+
+.text-color-outgoing {
+  color: #004EA3;
+}
