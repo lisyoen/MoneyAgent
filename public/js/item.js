@@ -10,7 +10,7 @@ requirejs.config({
 requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
   function($, Handlebars, config, dc) {
     Handlebars.registerHelper('currency', function(num) {
-      return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
+      return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
     });
 
     let params = (new URL(document.location)).searchParams;
@@ -41,7 +41,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
         }));
       }
 
-      $("#datetime").val(new Date().toJSON().slice(0, 19));
+      $('#datetime').val(new Date().toJSON().slice(0, 19));
 
       if (edit_mode) {
         console.log('edit mode');
@@ -119,6 +119,25 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       });
     }
 
+    $.postJSON = function(url, data, func) {
+      $.post(url, data, func, 'json');
+    };
+
+    function getItem() {
+      let item = {
+        account_idx: account_idx,
+        category_idx: $('#category')[0].dataset.category_idx,
+        date: dc.HTML5ToSqlite3($('#datetime')[0].value),
+        amount: $('#amount')[0].value * ($('#category')[0].dataset.category_type == 0 ? -1 : 1),
+        class_idx: $('#class')[0].dataset.class_idx,
+        memo: $('#memo')[0].value
+      };
+      if (!item.class_idx) {
+        item.class_idx = 0;
+      }
+      return item;
+    }
+
     function bindEvent() {
       $('#refresh-button').on('click', function(e) {
         location.reload(true);
@@ -131,6 +150,26 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       $('#submit-button').on('click', function(e) {
         alert($('#datetime')[0].value);
       });
+
+      $('#amount').on('focusin', function(e) {
+        if (parseInt(this.value) == 0) {
+          this.value = '';
+        }
+      });
+
+      $('#amount').on('focusout', function(e) {
+        if (!$.isNumeric(this.value)) {
+          this.value = '0';
+        }
+      });
+
+
+      $('#add-button').on('click', function(e) {
+        $.postJSON('./api/item', getItem(), function(err) {
+          console.log(err);
+          location.replace(config.items_path + '?account=' + account_idx);
+        });
+      });
     }
 
     function bindLazyEvent() {
@@ -138,6 +177,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
         let category = $('#category')[0];
         let item = $(this)[0];
         category.dataset.category_idx = item.dataset.idx;
+        category.dataset.category_type = item.dataset.type;
         category.value = item.dataset.name;
         $('#category').click();
       });

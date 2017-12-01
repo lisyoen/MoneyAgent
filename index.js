@@ -1,6 +1,7 @@
 let express = require('express');
 let vhost = require('vhost');
 let config = require('./config.js');
+let bodyParser = require('body-parser');
 
 let app = express(); // Money Agent
 let appHost = express();  // vhost app
@@ -12,6 +13,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', config.service_port);
 
 const sqlite3 = require('sqlite3').verbose();
@@ -82,6 +84,23 @@ app.get('/api/item/:item_idx', function(req, res) {
         console.error(err.message);
       }
       res.json(rows);
+    });
+  });
+});
+
+app.post('/api/item', function(req, res) {
+  console.log(req.body);
+  db.serialize(() => {
+    db.run(`INSERT INTO items (account_idx, 'date', category_idx, amount, class_idx, memo)
+            VALUES (?, ?, ?, ?, ?, ?)`,
+            [req.body.account_idx, req.body.date, req.body.category_idx,
+              req.body.amount, req.body.class_idx, req.body.memo],
+            (err, rows) => {
+      if (err) {
+        console.error(err);
+        res.json({code: err.code, message: err.message});
+      }
+      res.json({code: 0, message: 'success'});
     });
   });
 });

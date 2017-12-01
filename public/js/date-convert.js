@@ -3,6 +3,11 @@
 // html5 type : 2017-11-27T23:34
 define([], function () {
   return {
+    HTML5ToSqlite3: function(dateString) {
+      let dateLocal = new Date(dateString);
+      return ((dateLocal.getTime() + (dateLocal.getTimezoneOffset() * 1000 * 60)) / 1000);
+    },
+
     DateToSqlite3: function(date) {
       return (date.getTime() / 1000);
     },
