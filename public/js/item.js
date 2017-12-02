@@ -57,7 +57,6 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       } else {
         console.log('add mode');
         const item = {
-          idx: 0,
           date: dc.getSQLite3Now(),
           date_string: undefined,
           amount: 0,
@@ -145,10 +144,6 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
       $('.cancel-button').on('click', function(e) {
         location.replace(config.items_path + '?account=' + account_idx);
-      });
-
-      $('#submit-button').on('click', function(e) {
-        alert($('#datetime')[0].value);
       });
 
       $('#amount').on('focusin', function(e) {

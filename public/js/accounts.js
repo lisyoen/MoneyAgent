@@ -20,6 +20,10 @@ requirejs(['jquery', 'handlebars', 'config'], function($, Handlebars, config) {
       location.reload(true);
     });
 
+    $('#add-button').on('click', function(e) {
+      location.replace(config.account_path);
+    });
+
     $.getJSON('./api/accounts', function(data) {
       const accountList = data;
 

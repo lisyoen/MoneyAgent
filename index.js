@@ -36,12 +36,49 @@ app.get('/api/accounts', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
-
         res.json(rows);
       });
   });
 });
+
+app.post('/api/account', function(req, res) {
+  console.log(req.body);
+  db.serialize(() => {
+    db.run(`UPDATE accounts SET sort = sort + 1`, (err, rows) => {
+      if (err) {
+        console.error(err);
+        res.json({
+          code: err.code,
+          message: err.message
+        });
+        return;
+      }
+    });
+    db.run(`INSERT INTO accounts ('name', sort, 'date', icon)
+            VALUES (?, ?, strftime('%s','now') , ?)`, [req.body.name, 1, req.body.icon],
+      (err, rows) => {
+        if (err) {
+          console.error(err);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
+        }
+        res.json({
+          code: 0,
+          message: 'success'
+        });
+      });
+  });
+});
+
 
 app.get('/api/items/:account_idx', function(req, res) {
   // req.params.account_idx
@@ -52,6 +89,11 @@ app.get('/api/items/:account_idx', function(req, res) {
       (err, row) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
         result.account = row;
       });
@@ -64,6 +106,11 @@ app.get('/api/items/:account_idx', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
         result.itemList = rows;
         res.json(result);
@@ -83,6 +130,11 @@ app.get('/api/item/:item_idx', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
         res.json(rows);
       });
@@ -103,6 +155,7 @@ app.post('/api/item', function(req, res) {
             code: err.code,
             message: err.message
           });
+          return;
         }
         res.json({
           code: 0,
@@ -118,8 +171,14 @@ app.get('/api/categories', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
         res.json(rows);
+        return;
       });
   });
 });
@@ -130,6 +189,11 @@ app.get('/api/classes', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err.message);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
         }
         res.json(rows);
       });
