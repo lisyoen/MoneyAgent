@@ -1,4 +1,4 @@
-define([], function () {
+define([], function() {
   return {
     accounts_path: 'accounts.html',
     items_path: 'items.html',

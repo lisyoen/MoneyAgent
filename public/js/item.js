@@ -163,7 +163,6 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
         }
       });
 
-
       $('#add-button').on('click', function(e) {
         $.postJSON('./api/item', getItem(), function(err) {
           console.log(err);
@@ -208,4 +207,4 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       });
     }
 
-});
+  });
