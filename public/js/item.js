@@ -122,6 +122,15 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       $.post(url, data, func, 'json');
     };
 
+    $.deleteJSON = function(url, func) {
+      $.ajax({
+        type: "DELETE",
+        url: url,
+        success: func,
+        dataType: 'json'
+      });
+    };
+
     function getItem() {
       let item = {
         account_idx: account_idx,
@@ -199,6 +208,17 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
       $('#class-list').delegate('div.list-group-item', 'touchend', function(e) {
         $(this).removeClass('item-selected');
+      });
+
+      $('#delete-button').on('click', function(e) {
+        
+      });
+        
+      $('#delete-ok-button').on('click', function(e) {
+        $.deleteJSON('./api/item/' + item_idx, function(err) {
+          console.log(err);
+          location.replace(config.items_path + '?account=' + account_idx);
+        });
       });
     }
 

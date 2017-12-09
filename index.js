@@ -142,7 +142,7 @@ app.get('/api/item/:item_idx', function(req, res) {
 });
 
 app.post('/api/item', function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   db.serialize(() => {
     db.run(`INSERT INTO items (account_idx, 'date', category_idx, amount, class_idx, memo)
             VALUES (?, ?, ?, ?, ?, ?)`, [req.body.account_idx, req.body.date, req.body.category_idx,
@@ -151,6 +151,29 @@ app.post('/api/item', function(req, res) {
       (err, rows) => {
         if (err) {
           console.error(err);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
+        }
+        res.json({
+          code: 0,
+          message: 'success'
+        });
+      });
+  });
+});
+
+app.delete('/api/item/:item_idx', function(req, res) {
+  // req.params.item_idx
+  db.serialize(() => {
+    db.run(`DELETE
+            FROM items 
+            WHERE idx = ?`, [req.params.item_idx],
+      (err, rows) => {
+        if (err) {
+          console.error(err.message);
           res.json({
             code: err.code,
             message: err.message
