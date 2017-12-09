@@ -46,7 +46,11 @@
         </script>
         <script id="class-item-template" type="text/x-handlebars-template">
           {{#classList}}
+          {{#if isEmpty}}
+          <div class="list-group-item class-item py-2" data-idx="{{idx}}" data-name="{{name}}">&nbsp;</div>
+          {{else}}
           <div class="list-group-item class-item py-2" data-idx="{{idx}}" data-name="{{name}}">{{name}}</div>
+          {{/if}}
           {{/classList}}
         </script>
         <script id="item-template" type="text/x-handlebars-template">

@@ -112,6 +112,13 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
       $.getJSON('./api/classes', function (data) {
         let classes = data;
+        classes.push({idx: 0, name: '', isEmpty: true});
+        classes.sort(function(a, b) {
+          if (a.idx > b.idx) return 1;
+          if (a.idx < b.idx) return -1;
+          return 0;
+        });
+        console.log(classes);
         $('#class-list').html(classItemTemplate({
           'classList': classes
         }));
