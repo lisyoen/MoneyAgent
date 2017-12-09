@@ -5,6 +5,6 @@ This project is being developed to replace the iOS Money Agent app.
 
 This is private project and I don't have any plan to open this service.
 
-I just want to this.
+I just want to this on my iPhone.
 
 ![image](https://user-images.githubusercontent.com/3524235/33445594-a5d8d092-d640-11e7-988d-6d9f0d564dcd.png)
