@@ -5,7 +5,7 @@ define([], function() {
   return {
     HTML5ToSqlite3: function(dateString) {
       let dateLocal = new Date(dateString);
-      return ((dateLocal.getTime() + (dateLocal.getTimezoneOffset() * 1000 * 60)) / 1000);
+      return (dateLocal.getTime() / 1000); // + (dateLocal.getTimezoneOffset() * 1000 * 60)) / 1000);
     },
 
     DateToSqlite3: function(date) {
@@ -30,10 +30,10 @@ define([], function() {
       return isoString.substring(0, isoString.length - 8);
     },
 
+    // YYYY.MM.DD
     SQLite3ToDateString: function(date) {
       let dateLocal = new Date(date * 1000);
-      dateLocal.setTime(dateLocal.getTime() - (dateLocal.getTimezoneOffset() * 1000 * 60));
-      let dateString = dateLocal.getUTCFullYear() + '.' + (dateLocal.getUTCMonth() + 1) + '.' + dateLocal.getUTCDate();
+      let dateString = dateLocal.getFullYear() + '.' + (dateLocal.getMonth() + 1) + '.' + dateLocal.getDate();
       return dateString;
     }
   };

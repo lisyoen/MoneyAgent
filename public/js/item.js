@@ -8,8 +8,8 @@ requirejs.config({
 });
 
 requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
-  function($, Handlebars, config, dc) {
-    Handlebars.registerHelper('currency', function(num) {
+  function ($, Handlebars, config, dc) {
+    Handlebars.registerHelper('currency', function (num) {
       return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
     });
 
@@ -18,7 +18,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
     let item_idx = params.get('item');
     let edit_mode = (item_idx !== null);
 
-    $(function() {
+    $(function () {
       console.log('start', account_idx, item_idx, edit_mode);
 
       renderView();
@@ -45,7 +45,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
 
       if (edit_mode) {
         console.log('edit mode');
-        $.getJSON('./api/item/' + item_idx, function(data) {
+        $.getJSON('./api/item/' + item_idx, function (data) {
           const item = data;
           item.edit = true;
           item.date_string = dc.SQLite3ToHTML5(item.date);
@@ -71,10 +71,10 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
         bindLazyEvent();
       }
 
-      $.getJSON('./api/categories', function(data) {
+      $.getJSON('./api/categories', function (data) {
         let categories = [];
 
-        data.forEach(function(e, i, a) {
+        data.forEach(function (e, i, a) {
           categories[e.idx] = e;
         });
 
@@ -84,7 +84,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
           return 0;
         }
 
-        categories.forEach(function(e, i, a) {
+        categories.forEach(function (e, i, a) {
           if (e.parent > 0) {
             e.sortname = a[e.parent].name + '-' + e.name;
           } else {
@@ -92,7 +92,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
           }
         });
 
-        categories.sort(function(a, b) {
+        categories.sort(function (a, b) {
           if (!a && !b) return 0;
           if (!a) return 1;
           if (!b) return -1;
@@ -110,7 +110,7 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
         }));
       });
 
-      $.getJSON('./api/classes', function(data) {
+      $.getJSON('./api/classes', function (data) {
         let classes = data;
         $('#class-list').html(classItemTemplate({
           'classList': classes
@@ -118,11 +118,11 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       });
     }
 
-    $.postJSON = function(url, data, func) {
+    $.postJSON = function (url, data, func) {
       $.post(url, data, func, 'json');
     };
 
-    $.deleteJSON = function(url, func) {
+    $.deleteJSON = function (url, func) {
       $.ajax({
         type: "DELETE",
         url: url,
@@ -131,13 +131,23 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
       });
     };
 
+    $.putJSON = function (url, data, func) {
+      $.ajax({
+        type: "PUT",
+        url: url,
+        data: data,
+        success: func,
+        dataType: 'json'
+      });
+    };
+
     function getItem() {
       let item = {
         account_idx: account_idx,
-        category_idx: $('#category')[0].dataset.category_idx,
+        category_idx: $('#category')[0].dataset.categoryidx,
         date: dc.HTML5ToSqlite3($('#datetime')[0].value),
-        amount: $('#amount')[0].value * ($('#category')[0].dataset.category_type == 0 ? -1 : 1),
-        class_idx: $('#class')[0].dataset.class_idx,
+        amount: $('#amount')[0].value * ($('#category')[0].dataset.categorytype == 0 ? -1 : 1),
+        class_idx: $('#class')[0].dataset.classidx,
         memo: $('#memo')[0].value
       };
       if (!item.class_idx) {
@@ -147,75 +157,79 @@ requirejs(['jquery', 'handlebars', 'config', 'date-convert'],
     }
 
     function bindEvent() {
-      $('#refresh-button').on('click', function(e) {
+      $('#refresh-button').on('click', function (e) {
         location.reload(true);
       });
 
-      $('.cancel-button').on('click', function(e) {
+      $('.cancel-button').on('click', function (e) {
         location.replace(config.items_path + '?account=' + account_idx);
       });
 
-      $('#amount').on('focusin', function(e) {
+      $('#amount').on('focusin', function (e) {
         if (parseInt(this.value) == 0) {
           this.value = '';
         }
       });
 
-      $('#amount').on('focusout', function(e) {
+      $('#amount').on('focusout', function (e) {
         if (!$.isNumeric(this.value)) {
           this.value = '0';
         }
       });
 
-      $('#add-button').on('click', function(e) {
-        $.postJSON('./api/item', getItem(), function(err) {
-          console.log(err);
-          location.replace(config.items_path + '?account=' + account_idx);
-        });
+      $('#add-button').on('click', function (e) {
+        //console.log(getItem());
+        if (edit_mode) {
+          $.putJSON('./api/item/' + item_idx, getItem(), function (err) {
+            console.log(err);
+            location.replace(config.items_path + '?account=' + account_idx);
+          });
+        } else {
+          $.postJSON('./api/item', getItem(), function (err) {
+            console.log(err);
+            location.replace(config.items_path + '?account=' + account_idx);
+          });
+        }
       });
     }
 
     function bindLazyEvent() {
-      $('#category-list').delegate('div.list-group-item', 'click', function(e) {
+      $('#category-list').delegate('div.list-group-item', 'click', function (e) {
         let category = $('#category')[0];
         let item = $(this)[0];
-        category.dataset.category_idx = item.dataset.idx;
-        category.dataset.category_type = item.dataset.type;
+        category.dataset.categoryidx = item.dataset.idx;
+        category.dataset.categorytype = item.dataset.type;
         category.value = item.dataset.name;
         $('#category').click();
       });
 
-      $('#category-list').delegate('div.list-group-item', 'touchstart', function(e) {
+      $('#category-list').delegate('div.list-group-item', 'touchstart', function (e) {
         console.log('touch');
         $(this).addClass('item-selected');
       });
 
-      $('#category-list').delegate('div.list-group-item', 'touchend', function(e) {
+      $('#category-list').delegate('div.list-group-item', 'touchend', function (e) {
         $(this).removeClass('item-selected');
       });
 
-      $('#class-list').delegate('div.list-group-item', 'click', function(e) {
+      $('#class-list').delegate('div.list-group-item', 'click', function (e) {
         let cls = $('#class')[0];
         let item = $(this)[0];
-        cls.dataset.class_idx = item.dataset.idx;
+        cls.dataset.classidx = item.dataset.idx;
         cls.value = item.dataset.name;
         $('#class').click();
       });
 
-      $('#class-list').delegate('div.list-group-item', 'touchstart', function(e) {
+      $('#class-list').delegate('div.list-group-item', 'touchstart', function (e) {
         $(this).addClass('item-selected');
       });
 
-      $('#class-list').delegate('div.list-group-item', 'touchend', function(e) {
+      $('#class-list').delegate('div.list-group-item', 'touchend', function (e) {
         $(this).removeClass('item-selected');
       });
 
-      $('#delete-button').on('click', function(e) {
-        
-      });
-        
-      $('#delete-ok-button').on('click', function(e) {
-        $.deleteJSON('./api/item/' + item_idx, function(err) {
+      $('#delete-ok-button').on('click', function (e) {
+        $.deleteJSON('./api/item/' + item_idx, function (err) {
           console.log(err);
           location.replace(config.items_path + '?account=' + account_idx);
         });

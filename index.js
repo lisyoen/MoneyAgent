@@ -165,6 +165,33 @@ app.post('/api/item', function(req, res) {
   });
 });
 
+app.put('/api/item/:item_idx', function(req, res) {
+  // req.params.item_idx;
+  //console.log(req.params.item_idx);
+  //console.log(req.body);
+  db.serialize(() => {
+    db.run(`UPDATE items 
+            SET account_idx = ?, 'date' = ?, category_idx = ?, amount = ?, class_idx = ?, memo = ?
+            WHERE idx = ?`, [req.body.account_idx, req.body.date, req.body.category_idx,
+        req.body.amount, req.body.class_idx, req.body.memo, req.params.item_idx
+      ],
+      (err, rows) => {
+        if (err) {
+          console.error(err);
+          res.json({
+            code: err.code,
+            message: err.message
+          });
+          return;
+        }
+        res.json({
+          code: 0,
+          message: 'success'
+        });
+      });
+  });
+});
+
 app.delete('/api/item/:item_idx', function(req, res) {
   // req.params.item_idx
   db.serialize(() => {
