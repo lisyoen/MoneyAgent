@@ -18,14 +18,14 @@ define([], function() {
 
     // not tested
     DateToHTML5: function(date) {
-      let dateLocal = date.getTime() - (date.getTimezoneOffset() * 6000);
+      let dateLocal = date.getTime(); // - (date.getTimezoneOffset() * 6000);
       let isoString = dateLocal.toISOString();
       return isoString.substring(0, isoString.length - 8);
     },
 
     SQLite3ToHTML5: function(date) {
       let dateLocal = new Date(date * 1000);
-      dateLocal.setTime(dateLocal.getTime() - (dateLocal.getTimezoneOffset() * 1000 * 60));
+      //dateLocal.setTime(dateLocal.getTime() - (dateLocal.getTimezoneOffset() * 1000 * 60));
       let isoString = dateLocal.toISOString();
       return isoString.substring(0, isoString.length - 8);
     },
